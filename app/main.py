@@ -6,6 +6,22 @@ app = FastAPI()
 
 # Create database tables on startup.
 Base.metadata.create_all(bind=engine)
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+# Allow requests from your frontend (localhost:3000)
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # or use ["*"] to allow all (not recommended in production)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Include routers with path prefixes and tags.
 app.include_router(user.router, prefix="/users", tags=["users"])
