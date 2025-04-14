@@ -14,11 +14,19 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.user_type) {
+      alert('Please select a user type.');
+      return;
+    }
     try {
       const response = await API.post('/users/login', formData);
       localStorage.setItem('token', response.data.access_token);
       alert('Login successful!');
-      navigate('/dashboard');
+      if (formData.user_type === "admin") {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       alert('Login failed: ' + (error.response?.data?.detail || 'Unknown error'));
     }

@@ -19,10 +19,11 @@ const CampusMap = () => {
     loadData();
   }, []);
 
-  const defaultPosition = [12.97, 77.59]; // center of map
+  const defaultPosition = [16.463251, 80.506759]; // SRM University-AP
+
 
   return (
-    <MapContainer center={defaultPosition} zoom={16} style={{ height: '100vh', width: '100%' }}>
+    <MapContainer center={defaultPosition} zoom={16.5} style={{ height: '100vh', width: '100%' }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; OpenStreetMap contributors"

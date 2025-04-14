@@ -1,0 +1,18 @@
+.admin-section {
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .admin-section form {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr) auto;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .admin-section .MuiButton-root {
+    height: 56px; /* Match textfield height */
+  }
