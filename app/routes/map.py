@@ -58,6 +58,14 @@ def get_facility(facility_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Facility not found")
     return facility
 
+@router.delete("/facilities/{facility_id}")
+def delete_facility(facility_id: int, db: Session = Depends(get_db)):
+    facility = db.query(Facility).filter(Facility.id == facility_id).first()
+    if not facility:
+        raise HTTPException(status_code=404, detail="Facility not found")
+    db.delete(facility)
+    db.commit()
+    return {"message": "Facility deleted successfully"}
 # ------------------------ Parking Spot Routes ------------------------ #
 @router.post("/parking_spots/", response_model=ParkingSpotResponse)
 def add_parking_spot(spot: ParkingSpotCreate, db: Session = Depends(get_db)):
@@ -77,7 +85,15 @@ def get_parking_spot(spot_id: int, db: Session = Depends(get_db)):
     if not spot:
         raise HTTPException(status_code=404, detail="Parking spot not found")
     return spot
-
+@router.delete("/parking_spots/{spot_id}")
+def delete_parking_spot(spot_id: int, db: Session = Depends(get_db)):
+    spot = db.query(ParkingSpot).filter(ParkingSpot.id == spot_id).first()
+    if not spot:
+        raise HTTPException(status_code=404, detail="Parking spot not found")
+    
+    db.delete(spot)
+    db.commit()
+    return {"message": "Parking spot deleted successfully"}
 # ------------------------ Path Routes ------------------------ #
 @router.post("/paths/", response_model=PathResponse)
 def add_path(path: PathCreate, db: Session = Depends(get_db)):

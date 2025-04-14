@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.schema.user import UserCreate, UserRead
-from app.models.user import User, Student, Faculty, Admin
+from app.models.user import User, Student, Faculty, Visitor,Admin
 from app.core.database import get_db
 from app.services.authentication import hash_password, verify_password
 
@@ -33,6 +33,14 @@ def register_user(user_in: UserCreate, db: Session = Depends(get_db)):
             department=getattr(user_in, "department", None)
         )
         user_obj = faculty
+    elif user_in.user_type == "visitor":
+        visitor = Visitor(
+            username=user_in.username,
+            password_hash=hashed_password,
+            user_type="visitor",
+            department=getattr(user_in, "department", None)
+        )
+        user_obj = visitor
     elif user_in.user_type == "admin":
         admin = Admin(
             username=user_in.username,

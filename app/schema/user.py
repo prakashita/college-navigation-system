@@ -7,12 +7,14 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
-    user_type: str  # should be "student", "faculty", or "admin"
+    user_type: str  # should be "student", "faculty", "visitor",or "admin"
 
 class StudentCreate(UserCreate):
     major: str
 
 class FacultyCreate(UserCreate):
+    department: str
+class VisitorCreate(UserCreate):
     department: str
 
 class AdminCreate(UserCreate):

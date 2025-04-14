@@ -39,6 +39,16 @@ class Faculty(User):
         "polymorphic_identity": "faculty",
     }
 
+class Visitor(User):
+    __tablename__ = "visitors"
+    
+    id = Column(Integer, ForeignKey("users.id"), primary_key=True)
+    department = Column(String)  # faculty-specific attribute
+
+    __mapper_args__ = {
+        "polymorphic_identity": "visitor",
+    }
+
 class Admin(User):
     __tablename__ = "admins"
     
